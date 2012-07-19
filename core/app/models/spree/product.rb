@@ -33,8 +33,7 @@ module Spree
       :class_name => "Spree::Variant",
       :conditions => { :is_master => true }
 
-    delegate_belongs_to :master, :sku, :price, :weight, :height, :width, :depth, :is_master
-    delegate_belongs_to :master, :cost_price if Variant.table_exists? && Variant.column_names.include?('cost_price')
+    delegate_belongs_to :master, :sku, :price, :weight, :height, :width, :depth, :is_master, :cost_price
 
     after_create :set_master_variant_defaults
     after_create :add_properties_and_option_types_from_prototype
@@ -79,10 +78,7 @@ module Spree
                     :meta_keywords, :price, :sku, :deleted_at, :prototype_id,
                     :option_values_hash, :on_hand, :weight, :height, :width, :depth,
                     :shipping_category_id, :tax_category_id, :product_properties_attributes,
-                    :variants_attributes, :taxon_ids
-
-    attr_accessible :cost_price if Variant.table_exists? && Variant.column_names.include?('cost_price')
-
+                    :variants_attributes, :taxon_ids, :cost_price
 
     accepts_nested_attributes_for :product_properties, :allow_destroy => true, :reject_if => lambda { |pp| pp[:property_name].blank? }
 

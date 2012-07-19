@@ -18,7 +18,7 @@ module Spree
 
     validate :check_price
     validates :price, :numericality => { :greater_than_or_equal_to => 0 }, :presence => true
-    validates :cost_price, :numericality => { :greater_than_or_equal_to => 0, :allow_nil => true } if self.table_exists? && self.column_names.include?('cost_price')
+    validates :cost_price, :numericality => { :greater_than_or_equal_to => 0, :allow_nil => true }
     validates :count_on_hand, :numericality => true
 
     # default variant scope only lists non-deleted variants
